@@ -20,10 +20,17 @@ class Easycal_Admin {
 			__('easyCal'), 
 			'manage_options', 
 			'easycal-admin-menu', 
-			array( $this, 'admin_menu_page' ), 
+			array( $this, 'easycal_admin_menu_page' ), 
 			'dashicons-calendar-alt', 
 			30
 		);
+	}
+
+	public function easycal_admin_menu_page () {
+
+		$render = esc_html( 'Hola mundo' );
+
+		echo $render;
 	}
 
 	public function enqueue_styles() {
