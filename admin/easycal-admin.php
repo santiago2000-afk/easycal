@@ -12,6 +12,19 @@ class Easycal_Admin {
 		$this->version = $version;
 
 	}
+ 
+	public function easycal_add_admin_menu() {
+
+		add_menu_page( 
+			__('easyCal'), 
+			__('easyCal'), 
+			'manage_options', 
+			'easycal-admin-menu', 
+			array( $this, 'admin_menu_page' ), 
+			'dashicons-calendar-alt', 
+			30
+		);
+	}
 
 	public function enqueue_styles() {
 

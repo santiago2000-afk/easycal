@@ -17,45 +17,48 @@ class Easycal {
 		}
 		$this->plugin_name = 'easycal';
 
-		$this->load_dependencies();
-		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		$this->easycal_load_dependencies();
+		$this->easycal_set_locale();
+		$this->easycal_define_admin_hooks();
+		$this->easycal_define_public_hooks();
 
 	}
 
-	private function load_dependencies() {
+	private function easycal_load_dependencies() {
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-easycal-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/easycal-loader.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-easycal-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'inc/easycal-i18n.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-easycal-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/easycal-admin.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-easycal-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/easycal-public.php';
 
 		$this->loader = new Easycal_Loader();
 
 	}
 
-	private function set_locale() {
+	private function easycal_set_locale() {
 
 		$plugin_i18n = new Easycal_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'easycal_load_plugin_textdomain' );
 
 	}
 
-	private function define_admin_hooks() {
+	private function easycal_define_admin_hooks() {
 
-		$plugin_admin = new Easycal_Admin( $this->get_plugin_name(), $this->get_version() );
+		if(is_admin()) {
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+			$plugin_admin = new Easycal_Admin( $this->get_plugin_name(), $this->get_version() );
 
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+			$this->loader->add_action( 'admin_menu', $plugin_admin, 'easycal_add_admin_menu' );
+		}
 	}
 
-	private function define_public_hooks() {
+	private function easycal_define_public_hooks() {
 
 		$plugin_public = new Easycal_Public( $this->get_plugin_name(), $this->get_version() );
 
@@ -64,8 +67,8 @@ class Easycal {
 
 	}
 
-	public function run() {
-		$this->loader->run();
+	public function easycal_run() {
+		$this->loader->easycal_run();
 	}
 
 	public function get_plugin_name() {

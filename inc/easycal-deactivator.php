@@ -4,7 +4,7 @@
 class Easycal_Deactivator {
 
 
-	public static function deactivate() {
+	public static function easycal_deactivate() {
 
 	}
 
