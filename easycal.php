@@ -11,7 +11,7 @@
  * Author URI:        https://https://www.linkedin.com/in/santiago-alvarado-1275601b1//
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       easycal
+ * Text Domain:       easy-cal
  * Domain Path:       /languages
  */
 
