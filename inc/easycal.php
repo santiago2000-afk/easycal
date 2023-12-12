@@ -35,9 +35,8 @@ class Easycal {
         if (is_admin()) {
             $plugin_i18n = new Easycal_i18n();
 
-            if (method_exists($plugin_i18n, 'easycal_load_plugin_textdomain')){
-                $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'easycal_load_plugin_textdomain' );
-            }
+			$text_domain = method_exists($plugin_i18n, 'easycal_load_plugin_textdomain') ?
+				$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'easycal_load_plugin_textdomain' ) : null;
         }
     }
 
@@ -62,30 +61,25 @@ class Easycal {
 			$this->loader->add_action('init', $plugin_admin, 'easycal_init_post_type') : null;
 		
 		$generic = method_exists($plugin_admin, 'easycal_generate_and_save_shortcode') ? 
-			$this->loader->add_action('save_post', $plugin_admin, 'easycal_generate_and_save_shortcode') : null;
+			$this->loader->add_action('save_post_shortcode', $plugin_admin, 'easycal_generate_and_save_shortcode') : null;
 		
 		$add = method_exists($plugin_admin, 'easycal_add_shortcode_column') ? 
-			$this->loader->add_action('save_post', $plugin_admin, 'easycal_add_shortcode_column') : null;
+			$this->loader->add_action('manage_shortcode_posts_columns', $plugin_admin, 'easycal_add_shortcode_column') : null;
 		
 		$display = method_exists($plugin_admin, 'easycal_display_shortcode_column') ? 
 			$this->loader->add_action('manage_shortcode_posts_custom_column', $plugin_admin, 'easycal_display_shortcode_column', 10, 2) : null;
 	}
 	
     private function easycal_define_public_hooks() {
-        if(is_admin()){
-            $plugin_public = new Easycal_Public( $this->get_plugin_name(), $this->get_version() );
-            $this->easycal_add_public_hooks($plugin_public);
-        }
+		$plugin_public = new Easycal_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->easycal_add_public_hooks($plugin_public);
     }
 
     private function easycal_add_public_hooks($plugin_public){
-        if (method_exists($plugin_public, 'easycal_enqueue_styles')) {
-            $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_styles' );
-        }
-
-        if (method_exists($plugin_public, 'easycal_enqueue_scripts')){
-            $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_scripts' );
-        }
+		$styles = method_exists($plugin_public, 'easycal_enqueue_styles') ?
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_styles' ) : null;
+        $scripts = method_exists($plugin_public, 'easycal_enqueue_scripts') ?
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_scripts' ) : null;
     }
 
     public function easycal_run() {
