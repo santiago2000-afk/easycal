@@ -11,7 +11,8 @@ class Easycal_Admin {
 		$this->version = $version;
 	}
  
-	function easycal_init_post_type() {
+	public function easycal_init_post_type() {
+
 		$labels = array(
 			'name'               => 'Shortcodes',
 			'singular_name'      => 'Shortcode',
@@ -39,7 +40,7 @@ class Easycal_Admin {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
-			'supports'           => array('title', 'editor'),
+			'supports'           => array('title', 'editor', 'author', 'excerpt'),
 		);
 	
 		register_post_type('shortcode', $args);
@@ -65,13 +66,13 @@ class Easycal_Admin {
 		echo wp_kses( $render, 'h1' );
 	}
 
-	public function enqueue_styles() {
+	public function easycal_enqueue_styles() {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/easycal-admin.css', array(), $this->version, 'all' );
 
 	}
 
-	public function enqueue_scripts() {
+	public function easycal_enqueue_scripts() {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/easycal-admin.js', array( 'jquery' ), $this->version, false );
 
