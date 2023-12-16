@@ -12,18 +12,18 @@ class Easycal_Admin {
 
     public function easycal_init_post_type() {
         $labels = array(
-            'name'               => __('Shortcodes'),
-            'singular_name'      => __('Shortcode'),
-            'menu_name'          => __('Shortcodes'),
-            'all_items'          => __('Todos los Shortcodes'),
+            'name'               => __('EasyCal'),
+            'singular_name'      => __('EasyCal'),
+            'menu_name'          => __('EasyCal'),
+            'all_items'          => __('Todos los Calendarios'),
             'add_new'            => __('Agregar Nuevo'),
-            'add_new_item'       => __('Agregar Nuevo Shortcode'),
-            'edit_item'          => __('Editar Shortcode'),
-            'new_item'           => __('Nuevo Shortcode'),
-            'view_item'          => __('Ver Shortcode'),
-            'search_items'       => __('Buscar Shortcodes'),
-            'not_found'          => __('No se encontraron shortcodes'),
-            'not_found_in_trash' => __('No se encontraron shortcodes en la papelera'),
+            'add_new_item'       => __('Agregar Nuevo Calendario'),
+            'edit_item'          => __('Editar Calendario'),
+            'new_item'           => __('Nuevo Calendario'),
+            'view_item'          => __('Ver Calendario'),
+            'search_items'       => __('Buscar Calendarios'),
+            'not_found'          => __('No se encontraron Calendarios'),
+            'not_found_in_trash' => __('No se encontraron Calendarios en la papelera'),
         );
 
         $args = array(
@@ -33,12 +33,12 @@ class Easycal_Admin {
             'show_ui'            => true,
             'show_in_menu'       => 'easycal-admin-menu',
             'query_var'          => true,
-            'rewrite'            => array('slug' => 'shortcode'),
+            'rewrite'            => array('slug' => 'easycal'),
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
             'menu_position'      => null,
-            'supports'           => array('title', 'editor'),
+            'supports'           => array('title','editor'),
         );
 
         register_post_type('shortcode', $args);

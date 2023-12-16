@@ -26,27 +26,21 @@ class Easycal {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/easycal-admin.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/easycal-public.php';
 
-        if (is_admin()) {
-            $this->loader = new Easycal_Loader();
-        }
+        $this->loader = new Easycal_Loader();
     }
 
     private function easycal_set_locale() {
-        if (is_admin()) {
-            $plugin_i18n = new Easycal_i18n();
+        $plugin_i18n = new Easycal_i18n();
 
-			$text_domain = method_exists($plugin_i18n, 'easycal_load_plugin_textdomain') ?
-				$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'easycal_load_plugin_textdomain' ) : null;
-        }
+        $text_domain = method_exists($plugin_i18n, 'easycal_load_plugin_textdomain') ?
+            $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'easycal_load_plugin_textdomain' ) : null;
     }
 
     private function easycal_define_admin_hooks() {
-        if (is_admin()) {
-            $plugin_admin = new Easycal_Admin($this->get_plugin_name(), $this->get_version());
-            $this->easycal_add_admin_hooks($plugin_admin);
-        }
+        $plugin_admin = new Easycal_Admin($this->get_plugin_name(), $this->get_version());
+        $this->easycal_add_admin_hooks($plugin_admin);
     }
-
+ 
 	private function easycal_add_admin_hooks($plugin_admin) {
 		$styles = method_exists($plugin_admin, 'easycal_enqueue_styles') ? 
 			$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'easycal_enqueue_styles') : null;
@@ -77,7 +71,7 @@ class Easycal {
 
     private function easycal_add_public_hooks($plugin_public){
 		$styles = method_exists($plugin_public, 'easycal_enqueue_styles') ?
-			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_styles' ) : null;
+            $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_styles') : null;
         $scripts = method_exists($plugin_public, 'easycal_enqueue_scripts') ?
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'easycal_enqueue_scripts' ) : null;
     }
