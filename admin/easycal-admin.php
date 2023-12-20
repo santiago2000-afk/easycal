@@ -84,7 +84,15 @@ public function easycal_generate_and_save_shortcode($post_id) {
 }
 
 public function easycal_add_shortcode_column($columns) {
-    $columns['shortcode'] = __('Shortcode', 'easycal');
+    $new_columns = array();
+    $new_columns['shortcode'] = __('Shortcode', 'easycal');
+    
+    // Inserta la columna 'Shortcode' después de la primera columna
+    $position = 2;
+    $columns = array_slice($columns, 0, $position, true) +
+                $new_columns +
+                array_slice($columns, $position, null, true);
+
     return $columns;
 }
 
