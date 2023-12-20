@@ -62,7 +62,11 @@ class Easycal {
 		
 		$display = method_exists($plugin_admin, 'easycal_display_shortcode_column') ? 
 			$this->loader->add_action('manage_shortcode_posts_custom_column', $plugin_admin, 'easycal_display_shortcode_column', 10, 2) : null;
-	}
+
+        $show_shortcode = method_exists($plugin_admin, 'easycal_add_shortcode_metabox') ? 
+        $this->loader->add_action('add_meta_boxes', $plugin_admin, 'easycal_add_shortcode_metabox', 10, 2) : null;
+        
+    }
 	
     private function easycal_define_public_hooks() {
 		$plugin_public = new Easycal_Public( $this->get_plugin_name(), $this->get_version() );
