@@ -14,7 +14,7 @@ public function easycal_init_post_type() {
         'name'               => __('EasyCal'),
         'singular_name'      => __('EasyCal'),
         'menu_name'          => __('EasyCal'),
-        'all_items'          => __('Todos los Calendarios'),
+        'all_items'          => __('Añadir Calendario'),
         'add_new'            => __('Agregar Nuevo'),
         'add_new_item'       => __('Agregar Nuevo Calendario'),
         'edit_item'          => __('Editar Calendario'),
@@ -37,7 +37,7 @@ public function easycal_init_post_type() {
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array('title'),
+        'supports'           => array('title', 'author', 'tag'),
     );
 
     register_post_type('shortcode', $args);
@@ -79,7 +79,7 @@ public function easycal_generate_and_save_shortcode($post_id) {
         return;
     }
 
-    $shortcode = '[mi_shortcode id="' . $post_id . '"]';
+    $shortcode = '[easycal id="' . $post_id . '"]';
     update_post_meta($post_id, '_shortcode_value', $shortcode);
 }
 
@@ -99,7 +99,7 @@ public function easycal_add_shortcode_column($columns) {
 public function easycal_display_shortcode_column($column, $post_id) {
     if ($column === 'shortcode') {
         $shortcode = get_post_meta($post_id, '_shortcode_value', true);
-        echo '<input type="text" readonly="readonly" value="' . esc_attr($shortcode) . '" onclick="this.select();" />';
+        echo '<input type="text" readonly="readonly" class="shortcode_input_style" value="' . esc_attr($shortcode) . '" />';
     }
 }
 

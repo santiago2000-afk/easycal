@@ -46,7 +46,7 @@ class Easycal {
 			$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'easycal_enqueue_styles') : null;
 		
 		$scripts = method_exists($plugin_admin, 'easycal_enqueue_scripts') ? 
-			$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'easycal_enqueue_styles') : null;
+			$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'easycal_enqueue_scripts') : null;
 		
 		$admin_menu = method_exists($plugin_admin, 'easycal_add_admin_menu') ? 
 			$this->loader->add_action('admin_menu', $plugin_admin, 'easycal_add_admin_menu') : null;
@@ -64,7 +64,7 @@ class Easycal {
 			$this->loader->add_action('manage_shortcode_posts_custom_column', $plugin_admin, 'easycal_display_shortcode_column', 10, 2) : null;
 
         $show_shortcode = method_exists($plugin_admin, 'easycal_add_shortcode_metabox') ? 
-        $this->loader->add_action('add_meta_boxes', $plugin_admin, 'easycal_add_shortcode_metabox', 10, 2) : null;
+            $this->loader->add_action('add_meta_boxes', $plugin_admin, 'easycal_add_shortcode_metabox', 10, 2) : null;
         
     }
 	
