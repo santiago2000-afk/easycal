@@ -99,7 +99,7 @@ public function easycal_add_shortcode_column($columns) {
 public function easycal_display_shortcode_column($column, $post_id) {
     if ($column === 'shortcode') {
         $shortcode = get_post_meta($post_id, '_shortcode_value', true);
-        echo '<input type="text" readonly="readonly" class="shortcode_input_style" value="' . esc_attr($shortcode) . '" />';
+        echo '<input type="text" id="copy-to-clipboard" readonly="readonly" class="copy-to-clipboard" value="' . esc_attr($shortcode) . '" />';
     }
 }
 
